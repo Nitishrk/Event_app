@@ -1,0 +1,60 @@
+<div class="event-page" style="margin: 0 auto; width: 30%; text-align: center;">
+  <div class="event-container" style="margin: 0 auto;">
+      <h3><%= @event.name %></h3>
+      <input type="hidden" id="eventFee" value="<%= @event.fees %>"/>
+    <div class="event-description">
+      <p><%= @event.description %></p>
+    </div>
+      <div>
+        <% if @event.date >= Time.now  && user_signed_in? %>
+          <% if @status == true %>
+            <button class="btn btn-primary button" data-id="<%= @user.id%>" data-gender="<%= @user.gender %>" data-value="UNATTEND">Unattend</button>
+            <%else %>
+            <button class="btn btn-primary button"data-id="<%= @user.id%>" data-gender="<%= @user.gender %>" data-value="ATTEND">Attend</button>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="row users-list">
+        <% @users.each do |user| %>
+        <span class=" row user-name" style="border: thin dotted black;"><%= user.name %></span>
+        <% end %>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.button').click(function(){
+      var fees = $('#eventFee').val();
+      fees = parseInt(fees);
+      var id = '<%= @event.id %>';
+      var user_id = $(this).data('id');
+      var result = $(this).data('value');
+      var presence = false;
+      
+      if(result == "ATTEND"){ presence = true;}
+      else{ presence = false; }
+
+      var gender = $(this).data('gender');
+      if( gender == "Female" )
+      {
+        fees = fees - ((fees/100)*5);
+        var data = { 'id' : id, 'user_id' : user_id, 'presence' : presence, 'fees' : fees };
+      }else
+      {
+        var data = { 'id' : id, 'user_id' : user_id, 'presence' : presence };
+      }
+        $.ajax({
+          type: "POST",
+           url: "/presence",
+          data: data,
+          success: function(response) {
+            alert("success");
+              location.reload(true);
+          },
+          error: function() {
+              alert('Error occured!');
+              }
+        });
+    });
+  });
+</script>

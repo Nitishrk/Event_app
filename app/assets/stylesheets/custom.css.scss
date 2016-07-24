@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box; 
+}
+
+.left {
+  position:fixed; // keep fixed to window
+  padding: 10px;
+  top: 0; left: 0; // position to top left of window
+  height:100%; width:50px; //set dimensions
+  background:darkslategray;
+  transition: width ease .5s; // fluid transition when resizing
+  
+
+  body.open-nav & {
+    width:250px; 
+  }
+  
+  ul {
+    list-style:none;
+    margin:0; padding:0;
+    
+    li {
+      margin-bottom:25px;
+    }
+  }
+  
+  a {
+    color:shade(darkslategray, 50%);
+    text-decoration:solid;
+    border-bottom:1px solid transparent;
+    transition:
+      color ease .35s,
+      border-bottom-color ease .35s;
+    
+    &:hover {
+       color:white;
+       border-bottom-color:white; 
+    }
+    
+    &.open {
+      font-size:1.75rem;
+      font-weight:700;
+      border:0;
+    }
+  }
+}
+
+.right {
+  position:end;
+  margin-left:0; // push the right column past the left column, with some room as well.
+  transition:margin-left ease .5s; // fluid transition when resizing
+  
+  body.open-nav & {
+    margin-left:275px; // push the right column further when left is opened
+  }
+}
+
+.button {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 60px;
+  line-height: 35px;
+  padding: 0 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 1px rgba(black, .2);
+  background: #8c96a4;
+  border: 1px solid;
+  border-color: #8c8f9a #78828b #6e6e6e;
+  
+  &:first-child { border-radius: 3px 0 0 3px; }
+  &:last-child { border-radius: 0 3px 3px 0; }
+  &:only-child { border-radius: 3px; }
+
+  & + & {
+    position: relative;
+    margin-left: -1px;
+  }
+
+  &:active {
+    background: #848d9b;
+    border-color: #6e6e6e #78828b #78828b;
+    
+  }
+}
+
+.button-blue {
+  background: #6990d1;
+  border-color: #687ebb #5f74a6 #4e6198;
+
+  &:active {
+    background: #5f85cc;
+    border-color: #4e6198 #5f74a6 #5f74a6;
+  }
+  }
+  ul.hmenu {
+  list-style: none; 
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+ul.hmenu li {
+  display: inline;  
+}
+.h1{
+    font-size: 19px;
+    color: #fffff;
+}

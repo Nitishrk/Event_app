@@ -1,0 +1,25 @@
+<div class="event_table">
+  <span class="heading" style="text-align: center;">LIST OF EVENTS</span>
+  <div class="event_list">
+    <% Event.each do |event| %>
+      <div class="row">
+        <div class="event_name" data-id="<%= event.id %>">
+        <span><%= event.name %></span>
+        </div>
+        <div class="event_location">
+          <span ><%= event.location %></span>
+        </div> 
+        <div class="event_date">
+          <span ><%= event.date %></span>
+        </div>
+      </div> 
+    <% end %>   
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.event_name').click(function(){
+      window.location = "/event?id="+$(this).data('id');
+    });
+  });
+</script>
